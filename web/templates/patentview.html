@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html>
+
+    <head>
+    
+    <style>
+        body {
+            margin:60px;
+        }
+    </style>
+    
+    </head>
+    
+    <body>
+        <a href='/list'>retour liste</a>
+       
+        <div style="margin-bottom:40px;text-align:center;">
+        {% for imgurl in figures %}
+            <img src="{{imgurl}}" alt='fig' style="max-width: 200px;" />
+        {% endfor %}
+        </div>
+         
+        <h1>{{data['date_str']}} {{data['title']}}</h1>
+        <h3>{{data['patent_number']}}</h3>
+        
+        
+        
+        <p style="width:350px;line-height:150%;">
+            {{data.abstract}}
+        </p>
+        
+        {% set texte = data.description.split('\n') %}
+        {% for paragraph in texte %}
+        <p style="width:650px;line-height:150%;text-size:0.92em;">
+            {{ paragraph }}
+        </p>
+        {% endfor %}
+        
+        <h4>Brevets cités</h4>
+        {% for cited_number in data.cited %}
+            <a href="{{url_for('patentinfo', patent_id=cited_number)}}">{{cited_number}}</a>, 
+        {% endfor %}
+        
+        <h4>Brevets citants</h4>
+        {% for citedby_number in data.citedby %}
+            <a href="{{url_for('patentinfo', patent_id=citedby_number)}}">{{citedby_number}}</a>, 
+        {% endfor %}
+        
+        <p>
+        <a href="https://www.google.com/patents/{{data.patent_number}}">google patent</a>
+        </p>
+    </body>
+
+</html>

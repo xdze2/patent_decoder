@@ -9,7 +9,7 @@
         <h1>Liste des brevets</h1>
         
        {% for d in patentlist %}
-            <a href="{{d.url}}">{{d.patentnumber}}<a/>, 
+            <a href="{{d.url}}">{{d.patentnumber}} ({{d.nbre_figures}})<a/>, 
        {% endfor %}
        
     </body>

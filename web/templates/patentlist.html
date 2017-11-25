@@ -1,0 +1,17 @@
+<!doctype html>
+
+<html>
+
+    <head>
+    </head>
+    
+    <body>
+        <h1>Liste des brevets</h1>
+        
+       {% for d in patentlist %}
+            <a href="{{d.url}}">{{d.patentnumber}}<a/>, 
+       {% endfor %}
+       
+    </body>
+
+</html>

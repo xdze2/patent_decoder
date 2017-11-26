@@ -15,27 +15,27 @@ import os
 @app.route("/")
 def hello():
     return "Hello World!"
-    
-    
+
+
 @app.route('/hello')
 def helloyou():
     return 'Hello you'
-    
-    
+
+
 PATENTINFO = pickle.load( open( "data/patent_infos.pickle", "rb" ) )
-    
+
 SORTEDPATENTS = sorted( PATENTINFO.items() , key=lambda x:x[1]['date_str'] )
 
 @app.route('/list')
 def patentlist():
     # liste l'ensemble des brevets avec les liens vers /figs/
-    
+
     data = [ {'url':'/view/'+patnumber,
-              'patentnumber':patnumber, 
+              'patentnumber':patnumber,
               'nbre_figures':len( find_figures( patnumber )) }
                for patnumber, infos in SORTEDPATENTS ]
-               
-    return render_template( 'patentlist.html', patentlist=data   )
+
+    return render_template( 'patentlist.html.j2', patentlist=data   )
 
 
 @app.route('/view/<string:patent_id>')
@@ -48,37 +48,37 @@ def patentinfo(patent_id):
         data = PATENTINFO[ patent_id ]
 
     patentfiglist = find_figures( patent_id )
-   
-    return render_template( 'patentview.html', data=data, figures=patentfiglist   )
-    
-    
+
+    return render_template( 'patentview.html.j2', data=data, figures=patentfiglist   )
+
+
 
 @app.route('/figs/<string:patent_id>')
 def show_figures(patent_id):
     # affiche les figures pour un brevet
 
-    patentfiglist = [ url_for('static', filename=FIGURESDIR+figname ) 
-                        for figname in FIGURESLIST 
+    patentfiglist = [ url_for('static', filename=FIGURESDIR+figname )
+                        for figname in FIGURESLIST
                         if patentid_from_figname( figname ) == patent_id  ]
-     
+
     if len( patentfiglist ) == 0:
         return abort(404)
-        
-    return render_template( 'figures.html', figurl=patentfiglist   )
-    
-    
+
+    return render_template( 'figures.html.j2', figurl=patentfiglist   )
+
+
 def patentid_from_figname( figname ):
     return figname.split('-')[0]
-    
+ 
 
 FIGURESDIR = 'figures_extracted/'
-FIGURESLIST = os.listdir( 'static/'+FIGURESDIR )
-   
+FIGURESLIST =  os.listdir( 'static/'+FIGURESDIR )
+
 def find_figures( patent_number ):
-    # Retrouve les figures 
+    # Retrouve les figures
     #   retourne l'url static
-    patentfiglist = [ url_for('static', filename=FIGURESDIR+figname ) 
-                        for figname in FIGURESLIST 
+    patentfiglist = [ url_for('static', filename=FIGURESDIR+figname )
+                        for figname in FIGURESLIST
                         if patentid_from_figname( figname ) == patent_number  ]
-                        
-    return patentfiglist
+    # sort ?
+    return  patentfiglist

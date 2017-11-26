@@ -1,0 +1,95 @@
+<!doctype html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+
+    </head>
+
+    <body>
+
+
+       {#  ---  boite INFO ---  #}
+       <div class='boite_info'>
+           {#  ---  classification ---  #}
+            <span class='patentnumber'>{{data['patent_number']}}</span>
+
+            <span>
+                {% for cpc in data.cpc %}
+                    <span class='code_cpc'>
+                        {{ cpc.code }}
+                    </span>
+                {% endfor %}
+            </span>
+
+            {#  ---  info ---  #}
+            <h1> {{data['title']}} </h1>
+            <div class="date_line">
+                <span class='date' title="{{data['date_formatted']}}">{{data['year']}}</span>
+                {% for name in data.inventor %}
+                    <span class='inventor'>
+                        {{ name.name_formatted }}
+                        {% if name.country_code %} ({{name.country_code}}){% endif -%}
+                        {%  if not loop.last %},&nbsp;{% endif %}
+                    </span>
+                {% endfor %}
+            </div>
+
+
+
+       </div>
+
+       {#  ---  boite VIEW  ---  #}
+        <div class='boite_view'>
+
+            <div class='figures'>
+                {% for imgurl in figures %}
+                    <img src="{{imgurl}}" alt='fig' />
+                {% endfor %}
+            </div>
+            <div class='legende'>
+                Hello!
+                <br \>
+                123456789012345678
+                901234567890
+            </div>
+            <div class='description'>
+                <h4> Description </h4>
+                <div class='description-text'>
+                    {% if data.abstract %}
+                        <h4> Abstract </h4>
+                        <p> {{ data.abstract }} </p>
+                    {% endif %}
+
+                    <h4> Description </h4>
+                    {% set texte = data.description.split('\n') %}
+                    {% for paragraph in texte %}
+                        <p> {{ paragraph }} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+
+        <a href='/list'>retour liste</a>
+
+
+        <h4>Brevets cités</h4>
+        {% for cited_number in data.cited %}
+            <a href="{{url_for('patentinfo', patent_id=cited_number)}}">{{cited_number}}</a>,
+        {% endfor %}
+
+        <h4>Brevets citants</h4>
+        {% for citedby_number in data.citedby %}
+            <a href="{{url_for('patentinfo', patent_id=citedby_number)}}">{{citedby_number}}</a>,
+        {% endfor %}
+
+        <p>
+        <a href="https://www.google.com/patents/{{data.patent_number}}">google patent</a>
+        </p>
+    </body>
+
+</html>

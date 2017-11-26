@@ -35,6 +35,15 @@
                         {%  if not loop.last %},&nbsp;{% endif %}
                     </span>
                 {% endfor %}
+                <span class='assignee-list'>
+                    {% for name in data.assignee %}
+                        <span class='assignee'>
+                            {{ name.name_formatted }}
+                            {% if name.country_code %} ({{name.country_code}}){% endif -%}
+                            {%  if not loop.last %},&nbsp;{% endif %}
+                        </span>
+                    {% endfor %}
+                <span>
             </div>
 
 

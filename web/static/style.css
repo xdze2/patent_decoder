@@ -65,23 +65,38 @@ body {
 .boite_view {
     /*border: dashed 1px #c8515f;*/
 
-    display: grid ;
-    grid-template-columns: 1fr 30ch 1fr;
-    grid-gap: 6px;
+    display: flex ;
+    /*grid-template-columns: 1fr 30ch 1fr;*/
+    /*grid-gap: 6px;*/
 
 }
 
 .figures {
-    grid-column: 1 ;
+    /*grid-column: 1 ;*/
+    max-width: 40em;
+}
+.figures img {
+    /*max-width: 200px;*/
+    /*transform: scale(0.5, 0.5);*/
+    max-width: 49%;
+    /*height: auto;*/
+    /*border:1px solid gray;*/
+    /*margin:1px;*/
 }
 
-
 .legende {
-    grid-column: 2 ;
-
-    background-color: #979aaa;
-
+    /*grid-column: 2 ;*/
+    position: sticky;
+    top:1em;
+    height:100%;
+    max-height: 95vh;
     padding: 6px;
+    overflow: auto;
+
+    min-width: 16em;
+
+    /*background-color: #979aaa;*/
+
 }
 .legende ul {
     list-style-type: none;
@@ -100,14 +115,19 @@ body {
     margin-right:0.6em;
     padding: 0;
 
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-family: monospace;
 }
 
 
 .description {
-    grid-column: 3 ;
-    height:100%;
+    position:static;
+    height: 80%;
+    max-height: 75vh;
+    overflow: auto;
+
+    min-width: 16em;
+    padding: 6px;
 }
 .description h4 {
     margin: 0;
@@ -115,7 +135,6 @@ body {
     font-size: 0.8em;
 }
 .description-text {
-    border: 1px solid #2a2424;
 
     height:100%-5em;
     overflow: auto;
@@ -130,9 +149,4 @@ body {
 }
 .description p {
     width: 95%;
-}
-.figures img {
-    /*max-width: 200px;*/
-    width:49%; /* you can use % */
-    height: auto;
 }

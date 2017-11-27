@@ -39,6 +39,20 @@ def patentlist():
     return render_template( 'patentlist.html.j2', patentlist=data   )
 
 
+
+
+def get_info_for_citation( patentnum ):
+    patent = PATENTINFO[patentnum]
+
+    figurl = lambda figinfo: url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
+    inventorstr = lambda inventorList: ', '.join([a['name_formatted'] for a in inventorList ])
+
+    info = { 'year':patent['year'], 'title':patent['title'],
+            'inventor': inventorstr( patent['inventor'] ),
+            'fig0':figurl(patent['figures'][0]), 'patentnumber':patentnum }
+
+    return info
+
 @app.route('/view/<string:patent_id>')
 def patentinfo(patent_id):
     # affiche les infos pour un brevet
@@ -51,7 +65,11 @@ def patentinfo(patent_id):
     figlist = [ url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
                 for figinfo in data['figures'] ]
 
-    return render_template( 'patentview.html.j2', data=data, figures=figlist   )
+    citedinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['cited']  ]
+    citedbyinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['citedby']  ]
+
+    return render_template( 'patentview.html.j2', data=data, figures=figlist,
+                            citedinfo=citedinfo, citedbyinfo=citedbyinfo )
 
 
 

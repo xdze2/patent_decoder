@@ -84,21 +84,45 @@
 
 
 
-        <a href='/list'>retour liste</a>
 
 
-        <h4>Brevets cités</h4>
-        {% for cited_number in data.cited %}
-            <a href="{{url_for('patentinfo', patent_id=cited_number)}}">{{cited_number}}</a>,
-        {% endfor %}
+        <div class='citations'>
+            <h4>Brevets cités</h4>
+            <div class='listcited'>
+                {% for info in citedinfo %}
+                    <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
+                        <div class='citedimgwrapper'>
+                            <img src="{{info.fig0}}"  />
+                        </div>
+                        <div class='citedinfowrapper'>
+                            <h5>{{info.title}}</h5>
+                            <div><span class='date'>{{info.year}}</span>
+                            <span class='inventor'>{{info.inventor}}</span></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
 
-        <h4>Brevets citants</h4>
-        {% for citedby_number in data.citedby %}
-            <a href="{{url_for('patentinfo', patent_id=citedby_number)}}">{{citedby_number}}</a>,
-        {% endfor %}
+            <h4>Brevets citants</h4>
+            <div class='listcitedby'>
+                {% for info in citedbyinfo %}
+                    <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
+                        <div class='citedimgwrapper'>
+                            <img src="{{info.fig0}}"  />
+                        </div>
+                        <div class='citedinfowrapper'>
+                            <h5>{{info.title}}</h5>
+                            <div><span class='date'>{{info.year}}</span>
+                            <span class='inventor'>{{info.inventor}}</span></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
 
         <p>
-        <a href="https://www.google.com/patents/{{data.patent_number}}">google patent</a>
+            <a href="https://www.google.com/patents/{{data.patent_number}}">google patent</a>
+            <a href='/list'>retour liste</a>
         </p>
     </body>
 

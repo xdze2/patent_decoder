@@ -59,11 +59,16 @@
                 {% endfor %}
             </div>
             <div class='legende'>
+
+                {% if data.legend %}
                 <ul>
                     {% for line in data.legend %}
                         <li><span class='legend_number'> {{ line.numero }}</span> {{ line.label }} </li>
                     {% endfor %}
                 </ul>
+                {% else %}
+                    <div class='error'><span class='unicodeicon'>🙊</span> empty legend </div>
+                {% endif %}
             </div>
             <div class='description'>
                 <!-- <h4> Description </h4> -->

@@ -75,6 +75,9 @@ body {
     /*grid-column: 1 ;*/
     max-width: 40em;
 }
+.figures :first-child {
+    max-width: 99%;
+}
 .figures img {
     /*max-width: 200px;*/
     /*transform: scale(0.5, 0.5);*/
@@ -121,7 +124,8 @@ body {
 
 
 .description {
-    position:static;
+    position:sticky;
+    top:1em;
     height: 80%;
     max-height: 75vh;
     overflow: auto;

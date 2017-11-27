@@ -23,6 +23,8 @@ h1, h2, h3, h4, h5, h6 {
     color:#d6d6df;
 }
 .error .unicodeicon { font-size: 190%; display: block;}
+
+
 /* ---- INFO ---- */
 .boite_info {
     /*border: dashed 1px gray;*/
@@ -106,12 +108,14 @@ h1, h2, h3, h4, h5, h6 {
     top:1em;
     height:100%;
     max-height: 95vh;
-    padding: 6px;
     overflow: auto;
 
     min-width: 16em;
 
-    /*background-color: #979aaa;*/
+    padding: 0.6em;
+    margin:0.4em;
+
+    background-color: #f2f2f2;
 
 }
 .legende ul {
@@ -122,7 +126,11 @@ h1, h2, h3, h4, h5, h6 {
 .legende li {
     margin:0;
     padding: 0;
-    padding-bottom: 2px;
+    margin-bottom: 0.1em;
+    /*display: flex;*/
+}
+.legende li.non-consecutive {
+    margin-bottom: 0.6em;
 }
 .legende li .legend_number {
     display: inline-block;
@@ -175,33 +183,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 .citations h4 {
     margin-bottom: 0.2em;
+    margin-top: 0.4em;
     color: #bfbaba;
 }
 .listcited, .listcitedby{
+
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 /* --- citation link box -- */
 
 a.citedlinkbox  {
-    display: flex;
-    flex-direction: row;
+    /*display: flex;*/
+    /*flex-direction: row;*/
 
-    width:20em;
+    margin:0.4em;
+    width:18em;
     text-decoration: none;
     color: #2a2424;
 }
 a.citedlinkbox:hover .citedinfowrapper {
     position:relative;
-    left:6px;
+    left:0.4em;
 }
 a.citedlinkbox:hover img {
-    transform: scale(1.3, 1.3);
+    transform: scale(1.5, 1.5);
+}
+a.citedlinkbox:hover .unicodethumbnail {
+    font-size: 2.2em;
 }
 .citedlinkbox .citedimgwrapper {
-    width: 60px;
-    height: 60px;
+    float: left;
+    width: 3.4em;
+    height: 3.4em;
     padding: 2px;
+    margin-right: 0.5em;
     text-align: right;
 }
 .citedlinkbox .citedimgwrapper img {
@@ -209,10 +228,7 @@ a.citedlinkbox:hover img {
     max-height:100%;
 }
 .citedlinkbox .citedinfowrapper {
-    display: flex;
-    flex-direction: column;
-
-    margin-left: 0.5em;
+    overflow: hidden;
 }
 .citedlinkbox .citedinfowrapper h5 {
     margin:0;
@@ -225,9 +241,4 @@ a.citedlinkbox:hover img {
 .citedlinkbox .inventor {
     font-size: 90%
 }
-
-
-.date ::nth-letter(2n) {
-    color:red;
-
-}
+.unicodethumbnail { font-size: 2em; color: #d6d6df; display: block;}

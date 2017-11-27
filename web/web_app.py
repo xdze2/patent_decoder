@@ -40,16 +40,24 @@ def patentlist():
 
 
 
+def get_thumbfigUrl( patentfiglist ):
+    if patentfiglist:
+        figinfo = patentfiglist[0]
+        url = url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
+    else:
+        url = ''
+
+    return url
+
 
 def get_info_for_citation( patentnum ):
     patent = PATENTINFO[patentnum]
 
-    figurl = lambda figinfo: url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
     inventorstr = lambda inventorList: ', '.join([a['name_formatted'] for a in inventorList ])
 
     info = { 'year':patent['year'], 'title':patent['title'],
             'inventor': inventorstr( patent['inventor'] ),
-            'fig0':figurl(patent['figures'][0]), 'patentnumber':patentnum }
+            'fig0':get_thumbfigUrl(patent['figures']), 'patentnumber':patentnum }
 
     return info
 
@@ -73,7 +81,7 @@ def patentinfo(patent_id):
 
 
 
-
+ 
 def patentid_from_figname( figname ):
     return figname.split('-')[0]
 

@@ -54,16 +54,20 @@
         <div class='boite_view'>
 
             <div class='figures'>
+                {% if figures %}
                 {% for imgurl in figures %}
                     <img src="{{imgurl}}" alt='fig' />
                 {% endfor %}
+                {% else %} <div class='error'><span class='unicodethumbnail'>🙈</span> no figures</div> {% endif %}
             </div>
             <div class='legende'>
 
                 {% if data.legend %}
                 <ul>
                     {% for line in data.legend %}
-                        <li><span class='legend_number'> {{ line.numero }}</span> {{ line.label }} </li>
+                        <li  {{ 'class="non-consecutive"' if not line.consecutive }}  >
+                            <span class='legend_number'> {{ line.numero }}</span>{{ line.label }}
+                        </li>
                     {% endfor %}
                 </ul>
                 {% else %}
@@ -97,7 +101,9 @@
                 {% for info in citedinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            <img src="{{info.fig0}}"  />
+                            {% if info.fig0 %}<img src="{{info.fig0}}"  />
+                            {% else %}<span class='unicodeicon'>🙈</span>
+                            {% endif %}
                         </div>
                         <div class='citedinfowrapper'>
                             <h5>{{info.title}}</h5>
@@ -113,7 +119,9 @@
                 {% for info in citedbyinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            <img src="{{info.fig0}}"  />
+                            {% if info.fig0 %}<img src="{{info.fig0}}"  />
+                            {% else %}<span class='unicodethumbnail'>🙈</span>
+                            {% endif %}
                         </div>
                         <div class='citedinfowrapper'>
                             <h5>{{info.title}}</h5>

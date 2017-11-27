@@ -59,10 +59,11 @@
                 {% endfor %}
             </div>
             <div class='legende'>
-                Hello!
-                <br \>
-                123456789012345678
-                901234567890
+                <ul>
+                    {% for line in data.legend %}
+                        <li><span class='legend_number'> {{ line.numero }}</span> {{ line.label }} </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class='description'>
                 <h4> Description </h4>

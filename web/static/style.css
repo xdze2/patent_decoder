@@ -1,4 +1,6 @@
 
+/*http://www.color-hex.com/color-palette/1408*/
+
 body {
     margin: 30px;
     margin-top: 15px;
@@ -56,6 +58,9 @@ body {
 
 
 
+
+
+
 /* ---- VIEW ---- */
 .boite_view {
     /*border: dashed 1px #c8515f;*/
@@ -66,10 +71,11 @@ body {
 
 }
 
-/*http://www.color-hex.com/color-palette/1408*/
 .figures {
     grid-column: 1 ;
 }
+
+
 .legende {
     grid-column: 2 ;
 
@@ -77,6 +83,28 @@ body {
 
     padding: 6px;
 }
+.legende ul {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+}
+.legende li {
+    margin:0;
+    padding: 0;
+    padding-bottom: 2px;
+}
+.legende li .legend_number {
+    display: inline-block;
+    width:2em;
+    text-align: right;
+    margin-right:0.6em;
+    padding: 0;
+
+    font-weight: bold;
+    font-family: monospace;
+}
+
+
 .description {
     grid-column: 3 ;
     height:100%;

@@ -242,3 +242,8 @@ a.citedlinkbox:hover .unicodethumbnail {
     font-size: 90%
 }
 .unicodethumbnail { font-size: 2em; color: #d6d6df; display: block;}
+
+.nocitation {
+    margin-left: 4em; color: #d2d2d2; font-size: 95%; font-family: serif;
+}
+.nocitation .unicodeicon { font-size: 120%; }

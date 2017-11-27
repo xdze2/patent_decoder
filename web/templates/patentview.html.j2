@@ -98,6 +98,7 @@
         <div class='citations'>
             <h4>Brevets cités</h4>
             <div class='listcited'>
+                {% if citedinfo %}
                 {% for info in citedinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
@@ -111,11 +112,14 @@
                             <span class='inventor'>{{info.inventor}}</span></div>
                         </div>
                     </a>
-                {% endfor %}
+                {% endfor %}{% else %}
+                    <div class='nocitation'><span class='unicodeicon'>✻</span> None </div>
+                {% endif %}
             </div>
 
             <h4>Brevets citants</h4>
             <div class='listcitedby'>
+                {% if citedbyinfo %}
                 {% for info in citedbyinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
@@ -129,7 +133,9 @@
                             <span class='inventor'>{{info.inventor}}</span></div>
                         </div>
                     </a>
-                {% endfor %}
+                {% endfor %}{% else %}
+                    <div class='nocitation'><span class='unicodeicon'>✻</span> None </div>
+                {% endif %}
             </div>
         </div>
 

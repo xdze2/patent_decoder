@@ -70,8 +70,8 @@ def patentinfo(patent_id):
     else:
         data = PATENTINFO[ patent_id ]
 
-    figlist = [ url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
-                for figinfo in data['figures'] ]
+    figlist = [ {'url':url_for( 'static', filename=FIGURESDIR+figinfo['filename']),
+            'width':figinfo['width'] } for figinfo in data['figures'] ]
 
     citedinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['cited']  ]
     citedbyinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['citedby']  ]
@@ -81,7 +81,7 @@ def patentinfo(patent_id):
 
 
 
- 
+
 def patentid_from_figname( figname ):
     return figname.split('-')[0]
 

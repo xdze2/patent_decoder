@@ -3,6 +3,8 @@ from flask import render_template, abort, url_for
 
 import pickle
 
+from tools_for_webapp import *
+
 # How to run Flask:
 # $ export FLASK_DEBUG=1
 # $ FLASK_APP=web_app.py flask run
@@ -16,52 +18,39 @@ import os
 def hello():
     return "Hello World!"
 
-
-@app.route('/hello')
-def helloyou():
-    return 'Hello you'
+""" Config
+"""
 
 FIGURESDIR = 'figures_extracted/'
+THUMBNAILSDIR = 'thumbnails/'
 
-PATENTINFO = pickle.load( open( "data/patent_infos.pickle", "rb" ) )
+""" Tools
+"""
 
-SORTEDPATENTS = sorted( PATENTINFO.items() , key=lambda x:x[1]['date_str'] )
-
-@app.route('/list')
-def patentlist():
-    # liste l'ensemble des brevets avec les liens vers /figs/
-
-    data = [ {'url':'/view/'+patnumber,
-              'patentnumber':patnumber,
-              'nbre_figures':len( infos['figures']) }
-               for patnumber, infos in SORTEDPATENTS ]
-
-    return render_template( 'patentlist.html.j2', patentlist=data   )
-
-
-
-def get_thumbfigUrl( patentfiglist ):
-    if patentfiglist:
-        figinfo = patentfiglist[0]
-        url = url_for( 'static', filename=FIGURESDIR+figinfo['filename'])
+def get_thumbfigUrl( figures ):
+    """ donne l'url de la miniature pour un brevet (image n°0)
+    """
+    if figures:
+        figname = figures[0]['filename']
+        url = url_for( 'static', filename=THUMBNAILSDIR+figname )
     else:
         url = ''
-
     return url
 
-
-def get_info_for_citation( patentnum ):
-    patent = PATENTINFO[patentnum]
+def get_info_for_citation( patent ):
 
     inventorstr = lambda inventorList: ', '.join([a['name_formatted'] for a in inventorList ])
 
     info = { 'year':patent['year'], 'title':patent['title'],
             'inventor': inventorstr( patent['inventor'] ),
-            'fig0':get_thumbfigUrl(patent['figures']), 'patentnumber':patentnum }
+            'fig0':get_thumbfigUrl(patent['figures']), 'patentnumber':patent['patent_number'] }
 
     return info
 
 def get_figlist( figures ):
+    """ donne l'url et d'autre info pour toutes les figures
+        d'un brevet
+    """
     w_fig0 = figures[0]['width']
 
     scale = lambda w: min( 100, 100*w/w_fig0 )
@@ -70,6 +59,10 @@ def get_figlist( figures ):
             'scale':scale( figinfo['width'] ) } for figinfo in figures ]
 
     return figlist
+
+
+
+
 
 def insertbefore( i, string, text ):
     """ insert 'string' in 'text' before the position 'i'
@@ -110,6 +103,57 @@ def highlightdescription( description, raw_legend ):
     htmldescription = insertseveralbefore( tobeinserted, description )
     return htmldescription
 
+
+""" Chargement des données
+"""
+
+PATENTINFO = pickle.load( open( "data/patent_infos.pickle", "rb" ) )
+
+SORTEDPATENTS = sorted( PATENTINFO.items() , key=lambda x:x[1]['date_str'] )
+
+""" Group patent by years/decenie
+    for patent list
+"""
+# init
+getdecade = lambda y: y - y%10
+
+years = sorted( { getdecade( patent['year'] ) for patent in PATENTINFO.values() } )
+PATENTLISTBYYEAR =   { y:[] for y in years }
+
+# Loop
+for patent in PATENTINFO.values():
+    date = patent['year'], patent['month'], patent['day']
+    decade = getdecade( date[0] )
+    PATENTLISTBYYEAR[decade].append( {'patent_number': patent['patent_number'], 'date':date} )
+
+# Sort  in each groups
+for year, patents in PATENTLISTBYYEAR.items():
+    PATENTLISTBYYEAR[year] = sorted( patents, key=lambda x:x['date']  )
+
+PATENTLISTBYYEAR = sorted( PATENTLISTBYYEAR.items(), key= lambda x:x[0]  )
+
+""" ---  Patent List Page ---
+"""
+
+@app.route('/list')
+def patentlist():
+    # liste l'ensemble des brevets avec les liens vers /figs/
+    data = []
+    for year, patentsoftheyear in PATENTLISTBYYEAR:
+        patents_resume = []
+        for patentinfo in patentsoftheyear:
+            resume = get_info_for_citation( PATENTINFO[patentinfo['patent_number']] )
+            patents_resume.append( resume )
+
+        data.append( {'year':year, 'patents':patents_resume} )
+
+
+    return render_template( 'patentlist.html.j2', byyear=data   )
+
+
+""" ---  Patent View Page ---
+"""
+
 @app.route('/view/<string:patent_id>')
 def patentinfo(patent_id):
     # affiche les infos pour un brevet
@@ -119,8 +163,8 @@ def patentinfo(patent_id):
     else:
         data = PATENTINFO[ patent_id ]
 
-    citedinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['cited']  ]
-    citedbyinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['citedby']  ]
+    citedinfo = [ get_info_for_citation( PATENTINFO[patentnum] ) for patentnum  in data['cited']  ]
+    citedbyinfo = [ get_info_for_citation( PATENTINFO[patentnum] ) for patentnum  in data['citedby']  ]
 
     figlist = get_figlist( data['figures'] ) if data['figures'] else []
 

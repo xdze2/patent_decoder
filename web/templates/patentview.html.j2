@@ -57,7 +57,7 @@
                 {% if figures %}
                 {% for imginfo in figures %}
                     <img src="{{imginfo.url}}" alt='nofig'
-                        style="width:{{ 100/figures[0].width*imginfo.width }}%" />
+                        style="width:{{ imginfo.scale }}%" />
                 {% endfor %}
                 {% else %} <div class='error'><span class='unicodethumbnail'>🙈</span> no figures</div> {% endif %}
             </div>

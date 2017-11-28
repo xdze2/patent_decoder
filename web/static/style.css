@@ -167,6 +167,24 @@ h1, h2, h3, h4, h5, h6 {
 .description p {
     width: 95%;
 }
+/*.highlightfromlegend {
+    background-color: #e1e1e3;
+    font-size: 95%;
+    padding:1px;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}*/
+.highlightfromlegend {
+    font-size: 90%;
+    font-weight: bold;
+    color: #b5b0b0;
+    padding:1px;
+}
+.highlightfromlegend:hover {
+    color: #005b96;
+}
+
+
 
 /*--- CiTATiON---*/
 

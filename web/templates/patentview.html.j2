@@ -84,9 +84,9 @@
                     {% endif %}
 
                     <h4> Description </h4>
-                    {% set texte = data.description.split('\n') %}
+                    {% set texte = descriptionhtml.split('\n') %}
                     {% for paragraph in texte %}
-                        <p> {{ paragraph }} </p>
+                        <p> {{ paragraph | safe }} </p>
                     {% endfor %}
                 </div>
             </div>

@@ -71,6 +71,45 @@ def get_figlist( figures ):
 
     return figlist
 
+def insertbefore( i, string, text ):
+    """ insert 'string' in 'text' before the position 'i'
+    """
+    newtext = list(text)
+    newtext.insert( i, string )
+    newtext = ''.join( newtext )
+    return newtext
+
+def insertseveralbefore( severalstrings, text ):
+    """ insert plusieurs chaine de caractères aux positions i :
+        severalstrings = [ (i, str), (i,str), ... ]
+    """
+    offset = 0
+    for i, string in severalstrings:
+        text = insertbefore( offset+i, string, text )
+        offset = offset + len( string )
+
+    return text
+
+def highlightdescription( description, raw_legend ):
+    """ Ajoute les balises HTML dans la description
+        correspondant à la legende
+
+        !!! HTML inside :( ... use filter ?
+    """
+    tobeinserted = []
+    for line in raw_legend:
+        end =  line['position'][1]
+        start =  line['position'][0] - len(line['label']) - 2
+
+        start_tag = '<span class="highlightfromlegend legenditem%s">' % line['numero']
+        end_tag = '</span>'
+
+        tobeinserted.append( (start, start_tag) )
+        tobeinserted.append( (end, end_tag) )
+
+    htmldescription = insertseveralbefore( tobeinserted, description )
+    return htmldescription
+
 @app.route('/view/<string:patent_id>')
 def patentinfo(patent_id):
     # affiche les infos pour un brevet
@@ -85,22 +124,8 @@ def patentinfo(patent_id):
 
     figlist = get_figlist( data['figures'] ) if data['figures'] else []
 
+    descriptionhtml = highlightdescription( data['description'], data['raw_legend'] )
+
     return render_template( 'patentview.html.j2', data=data, figures=figlist,
-                            citedinfo=citedinfo, citedbyinfo=citedbyinfo )
-
-
-
-
-def patentid_from_figname( figname ):
-    return figname.split('-')[0]
-
-FIGURESLIST =  os.listdir( 'static/'+FIGURESDIR )
-
-def find_figures( patent_number ):
-    # Retrouve les figures
-    #   retourne l'url static
-    patentfiglist = [ url_for('static', filename=FIGURESDIR+figname )
-                        for figname in FIGURESLIST
-                        if patentid_from_figname( figname ) == patent_number  ]
-    # sort ?
-    return  patentfiglist
+                            citedinfo=citedinfo, citedbyinfo=citedbyinfo,
+                            descriptionhtml=descriptionhtml )

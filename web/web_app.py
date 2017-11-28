@@ -82,7 +82,8 @@ def patentinfo(patent_id):
 
     citedinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['cited']  ]
     citedbyinfo = [ get_info_for_citation( patentnum ) for patentnum  in data['citedby']  ]
-    figlist = get_figlist( data['figures'] )
+
+    figlist = get_figlist( data['figures'] ) if data['figures'] else []
 
     return render_template( 'patentview.html.j2', data=data, figures=figlist,
                             citedinfo=citedinfo, citedbyinfo=citedbyinfo )

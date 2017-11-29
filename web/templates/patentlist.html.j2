@@ -8,7 +8,7 @@
 
     <body>
 
-{% for thisyear in byyear[:5]  %}
+{% for thisyear in byyear  %}
     <div class='yeargroup'>
         <h2> {{ thisyear.year }} </h2>
         <div class='listwrapper'>
@@ -22,11 +22,11 @@
                     {% endif %}
                 </div>
 
-                <div class='infowrapper'>
+                <!-- <div class='infowrapper'>
                     <h5>{{info.title}}</h5>
                     <div><span class='date'>{{info.year}}</span>
                     <span class='inventor'>{{info.inventor}}</span></div>
-                </div>
+                </div> -->
             </a>
             </div>
             {% endfor %}

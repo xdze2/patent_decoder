@@ -11,7 +11,7 @@
         <p class='scrolllinks top'>
             <a href='#end'>🡇</a>
         </p>
-        
+
        {#  ---  boite INFO ---  #}
        <div class='boite_info'>
            {#  ---  classification ---  #}
@@ -104,7 +104,7 @@
                 {% for info in citedinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            {% if info.fig0 %}<img src="{{info.fig0}}"  />
+                            {% if info.fig0 %}<img src="{{info.thumbnail}}"  />
                             {% else %}<span class='unicodethumbnail'>🙈</span>
                             {% endif %}
                         </div>
@@ -125,7 +125,7 @@
                 {% for info in citedbyinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            {% if info.fig0 %}<img src="{{info.fig0}}"  />
+                            {% if info.fig0 %}<img src="{{info.thumbnail}}"  />
                             {% else %}<span class='unicodethumbnail'>🙈</span>
                             {% endif %}
                         </div>

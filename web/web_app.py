@@ -27,14 +27,12 @@ THUMBNAILSDIR = 'thumbnails/'
 """ Tools
 """
 
-def get_thumbfigUrl( figures ):
+def get_thumbfigUrl( patentnum ):
     """ donne l'url de la miniature pour un brevet (image n°0)
     """
-    if figures:
-        figname = figures[0]['filename']
-        url = url_for( 'static', filename=THUMBNAILSDIR+figname )
-    else:
-        url = ''
+    thumbname = patentnum + '-thumbnail.png'
+    url = url_for( 'static', filename=THUMBNAILSDIR + thumbname )
+
     return url
 
 def get_info_for_citation( patent ):
@@ -43,7 +41,7 @@ def get_info_for_citation( patent ):
 
     info = { 'year':patent['year'], 'title':patent['title'],
             'inventor': inventorstr( patent['inventor'] ),
-            'fig0':get_thumbfigUrl(patent['figures']), 'patentnumber':patent['patent_number'] }
+            'thumbnail':get_thumbfigUrl(patent['patent_number']), 'patentnumber':patent['patent_number'] }
 
     return info
 

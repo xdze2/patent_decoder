@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, abort, url_for
+from flask import render_template, abort, url_for, redirect
 
 import pickle
 
@@ -16,7 +16,7 @@ import os
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return redirect(url_for('patentlist'))
 
 """ Config
 """

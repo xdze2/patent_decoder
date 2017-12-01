@@ -10,23 +10,23 @@
 
 {% for thisyear in byyear  %}
     <div class='yeargroup'>
-        <h2> {{ thisyear.year }} </h2>
+        <div class='square square_year'><h2> {{ thisyear.year }} </h2> </div>
         <div class='listwrapper'>
 
             {% for info in thisyear.patents  %}
-            <div class='linkanchor'>
+            <div class='linkanchor square'>
             <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='linkbox'>
-                <div class='imgwrapper'><span class="verticalcenteringhack"> </span>
+                <div class='imgwrapper square'><span class="verticalcenteringhack"> </span>
                     {% if info.fig0 %}<img src="{{info.fig0}}"  />
                     {% else %}<span class='unicodethumbnail'>🙈</span>
                     {% endif %}
                 </div>
 
-                <!-- <div class='infowrapper'>
+                <div class='infowrapper'>
                     <h5>{{info.title}}</h5>
-                    <div><span class='date'>{{info.year}}</span>
-                    <span class='inventor'>{{info.inventor}}</span></div>
-                </div> -->
+                    <!-- <div><span class='date'>{{info.year}}</span> -->
+                    <!-- <span class='inventor'>{{info.inventor}}</span></div> -->
+                </div>
             </a>
             </div>
             {% endfor %}

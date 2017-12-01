@@ -282,3 +282,30 @@ a.citedlinkbox:hover .unicodethumbnail {
 .navlinks a:hover {
     color: #ec4141;
 }
+
+.scrolllinks {
+    position: absolute;
+    text-align: right;
+}
+.top {
+    bottom: -10px;
+    right: 10px;
+}
+.end {
+    position: static;
+}
+.scrolllinks a {
+    text-decoration: none;
+    color:  #2a2424;
+    display:block;
+
+    font-weight: bold;
+    font-size: 2em;
+    font-style: sans-serif;
+
+    opacity: 0.4;
+    padding:0.15em;
+}
+.scrolllinks a:hover {
+    color: #ec4141;
+}

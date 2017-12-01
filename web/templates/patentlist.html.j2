@@ -17,6 +17,7 @@
             <div class='linkanchor square'>
             <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='linkbox'>
                 <div class='imgwrapper square'><span class="verticalcenteringhack"> </span>
+                    <span class='isvisited'>•</span>
                     {% if info.fig0 %}<img src="{{info.fig0}}"  />
                     {% else %}<span class='unicodethumbnail'>🙈</span>
                     {% endif %}

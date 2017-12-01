@@ -17,8 +17,8 @@ http://www.imagemagick.org/Usage/resize/#shrink
 
 ## To do after
 
-* Stats sur les mots des titres
-    - change grayness... 
+* Stats sur les mots des titres  [not very effective ?]
+    - change grayness...
 
 ### Légende & parsing :
 * meilleur parsing legend :  (Rq: highlight => no error!)
@@ -86,3 +86,5 @@ http://www.imagemagick.org/Usage/resize/#shrink
 * BigGraph: idée d'une visu big map (ancestors...)
     - force layout ? gephi
     - DIY: plan by plan layout...
+
+...conclusion:  les citations ne sont pas vraiment fiables ..

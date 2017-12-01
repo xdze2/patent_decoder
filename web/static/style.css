@@ -259,13 +259,26 @@ a.citedlinkbox:hover .unicodethumbnail {
 .nocitation .unicodeicon { font-size: 120%; }
 
 
-/* --- Patent list --- */
-.patentlist {
-    width:80%;
-    
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+
+
+.navlinks {
+    position: absolute;
+    top: -0.5em;
+    right: 0.5em;
+    text-align: right;
+}
+.navlinks a {
+    text-decoration: none;
+    color:  #2a2424;
+    display:block;
+
+    font-weight: bold;
+    font-size: 0.9em;
+    font-style: sans-serif;
+
+    opacity: 0.4;
+    padding:0.15em;
+}
+.navlinks a:hover {
+    color: #ec4141;
 }

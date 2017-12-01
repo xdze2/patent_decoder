@@ -7,8 +7,8 @@
 http://www.imagemagick.org/Usage/resize/#shrink
 
 * Clean & simplify patent list
-    - index, pagination, title box :hover
-    - go back button
+    - index [ok], pagination [no], title box :hover [ok]
+    - go back button [ok]
 
 * Freeze & publish
 

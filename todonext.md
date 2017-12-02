@@ -2,9 +2,7 @@
 
 # To do first
 
-* Créer les miniatures des figures  proprement
-    mogrify ne amrche pas ?
-http://www.imagemagick.org/Usage/resize/#shrink
+* Créer les miniatures des figures  proprement [ok]
 
 * Clean & simplify patent list
     - index [ok], pagination [no], title box :hover [ok]

@@ -26,3 +26,10 @@ Un des gros aspect du projet est d'**extraire les images** depuis les pdf des br
 * Traiter le texte de la description avant la recherche de la légende, afin de supprimer quelques erreurs.
 * Gérer les numérotations avec des lettres
 * OCR des images : numéro sur les figures, et (identification du numéro de la figure ?)
+
+
+## Requirements
+* numpy, scipy
+* Wand
+* Flask, Frozen-Flask
+* python-magic

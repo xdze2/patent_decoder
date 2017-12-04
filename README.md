@@ -1,3 +1,5 @@
+
+<img src='patent_decoder/Screenshot-US20060180169.png' style='width:700px;' alt='screenshot'/>
 # Patent Decoder
 
 Projet d'interface pour visualiser des brevets avec un point de vue technique, c'est-à-dire avec les figures, la légende et le texte de description technique. Pas de revendications, date de priorité... etc

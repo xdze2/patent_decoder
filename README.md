@@ -1,7 +1,6 @@
-# patent_decoder
-web interface to browse patents, and see the figures.
+# Patent Decoder
 
-Projet d'interface pour visualiser des brevets avec un point de vue technique, c'est-à-dire avec les figures, leurs légende et la texte de description en premier.
+Projet d'interface pour visualiser des brevets avec un point de vue technique, c'est-à-dire avec les figures, la légende et le texte de description technique. Pas de revendications, date de priorité... etc
 
 
 Les données sont obtenues entre autre avec [google BigQuery et ses Patents Public Data](https://console.cloud.google.com/launcher/partners/patents-public-data). L'interface web est réalisée avec Flask, puis Flask-frozen.
@@ -18,8 +17,6 @@ Un des gros aspect du projet est d'**extraire les images** depuis les pdf des br
 ## La suite
 
 * utiliser [open patent service](http://www.epo.org/searching-for-patents/technical/espacenet/ops.html#tab-1) comme source de données
-
 * Traiter le texte de la description avant la recherche de la légende, afin de supprimer quelques erreurs.
-
 * Gérer les numérotations avec des lettres
 * OCR des images : numéro sur les figures, et (identification du numéro de la figure ?)

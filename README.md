@@ -12,7 +12,7 @@ Les données sont obtenues entre autre avec [google BigQuery et ses Patents Publ
 
 Un des gros aspect du projet est d'**extraire les images** depuis les pdf des brevets. Ceci est réalisé avec la libraire `ndimage` de scipy. Une certaine succesion d'opérations de [dilatation et d'érosion](https://fr.wikipedia.org/wiki/Morphologie_math%C3%A9matique) permet de détecter la présence d'une figure (à contrario du texte) puis de trouver la zone où elle s'étend. L'astuce est de chercher les zones encloses larges.
 
-<img src='https://raw.githubusercontent.com/xdze2/patent_decoder/master/illu_algoextractimg.png' style='width:200px;' alt='étape extraction figure'/>
+<img src='https://raw.githubusercontent.com/xdze2/patent_decoder/master/illu_algoextractimg.png'  width="200"  alt='étape extraction figure'/>
 
 
 **L'extraction de la légende** se base sur une série d'expression régulière cherchant les numéros isolés, puis un choix est fait pour sélectionner un unique label : pour chaque mot en partant de la fin, est selectionné celui le plus présent, si exaequo alors arrêt.

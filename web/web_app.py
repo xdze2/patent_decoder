@@ -1,5 +1,7 @@
 from flask import Flask
-from flask import render_template, abort, url_for, redirect
+from flask import render_template, abort, redirect, url_for
+
+# from flask_frozen import relative_url_for as url_for
 
 import pickle
 
@@ -12,11 +14,17 @@ from tools_for_webapp import *
 
 app = Flask(__name__)
 
+app.config['FREEZER_RELATIVE_URLS'] = True
+app.config['FREEZER_IGNORE_404_NOT_FOUND'] = True
+
+#  --- during app creation ---'
+# https://stackoverflow.com/a/28545503/8069403
+
+# app.add_template_global(url_for)
+# app.context_processor(lambda: {'url_for': url_for})
+
 import os
 
-@app.route("/")
-def hello():
-    return redirect(url_for('patentlist'))
 
 """ Config
 """
@@ -27,13 +35,18 @@ THUMBNAILSDIR = 'thumbnails/'
 """ Tools
 """
 
-def get_thumbfigUrl( patentnum ):
+def get_thumbfig_path( patentnum ):
     """ donne l'url de la miniature pour un brevet (image n°0)
     """
     thumbname = patentnum + '-thumbnail.png'
-    url = url_for( 'static', filename=THUMBNAILSDIR + thumbname )
+    thumbpath = THUMBNAILSDIR + thumbname
 
-    return url
+    if os.path.isfile('static/'+thumbpath):
+        path = thumbpath
+    else:
+        path = ''
+
+    return path
 
 def get_info_for_citation( patent ):
 
@@ -41,7 +54,7 @@ def get_info_for_citation( patent ):
 
     info = { 'year':patent['year'], 'title':patent['title'],
             'inventor': inventorstr( patent['inventor'] ),
-            'thumbnail':get_thumbfigUrl(patent['patent_number']), 'patentnumber':patent['patent_number'] }
+            'thumbnail':get_thumbfig_path(patent['patent_number']), 'patentnumber':patent['patent_number'] }
 
     return info
 
@@ -53,7 +66,7 @@ def get_figlist( figures ):
 
     scale = lambda w: min( 100, 100*w/w_fig0 )
 
-    figlist = [ {'url':url_for( 'static', filename=FIGURESDIR+figinfo['filename']),
+    figlist = [ {'path':FIGURESDIR+figinfo['filename'],
             'scale':scale( figinfo['width'] ) } for figinfo in figures ]
 
     return figlist
@@ -130,10 +143,15 @@ for year, patents in PATENTLISTBYYEAR.items():
 
 PATENTLISTBYYEAR = sorted( PATENTLISTBYYEAR.items(), key= lambda x:x[0]  )
 
+
 """ ---  Patent List Page ---
 """
+@app.route("/")
+def hello():
+    return redirect(url_for('patentlist'))
 
-@app.route('/list')
+
+@app.route('/list.html')
 def patentlist():
     # liste l'ensemble des brevets avec les liens vers /figs/
     data = []
@@ -149,11 +167,15 @@ def patentlist():
     return render_template( 'patentlist.html.j2', byyear=data   )
 
 
+##, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 """ ---  Patent View Page ---
 """
 
-@app.route('/view/<string:patent_id>')
+@app.route('/view/<string:patent_id>.html')
 def patentinfo(patent_id):
+
     # affiche les infos pour un brevet
 
     if patent_id not in PATENTINFO:

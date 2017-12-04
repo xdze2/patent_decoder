@@ -3,7 +3,10 @@
 <html>
 
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+        <title>{{data['patent_number']}}</title>
     </head>
 
     <body>
@@ -57,7 +60,7 @@
             <div class='figures'>
                 {% if figures %}
                 {% for imginfo in figures %}
-                    <img src="{{imginfo.url}}" alt='nofig'
+                    <img src="{{ url_for( 'static', filename=imginfo.path )}}" alt='nofig'
                         style="width:{{ imginfo.scale }}%" />
                 {% endfor %}
                 {% else %} <div class='error'><span class='unicodethumbnail'>🙈</span> no figures</div> {% endif %}
@@ -104,7 +107,8 @@
                 {% for info in citedinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            {% if info.thumbnail %}<img src="{{info.thumbnail}}"  />
+                            {% if info.thumbnail %}
+                            <img src="{{ url_for('static', filename=info.thumbnail )}}"  />
                             {% else %}<span class='unicodethumbnail'>🙈</span>
                             {% endif %}
                         </div>
@@ -125,7 +129,8 @@
                 {% for info in citedbyinfo %}
                     <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='citedlinkbox'>
                         <div class='citedimgwrapper'>
-                            {% if info.thumbnail %}<img src="{{info.thumbnail}}"  />
+                            {% if info.thumbnail %}
+                            <img src="{{ url_for('static', filename=info.thumbnail )}}"  />
                             {% else %}<span class='unicodethumbnail'>🙈</span>
                             {% endif %}
                         </div>
@@ -143,7 +148,7 @@
 
         <p class='navlinks'>
             <a href="https://www.google.com/patents/{{data.patent_number}}">google patent 🔗</a>
-            <a href='/list'>back to the list 🡄</a>
+            <a href='/'>back to the list 🡄</a>
         </p>
 
         <p class='scrolllinks end'>

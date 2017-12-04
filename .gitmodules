@@ -1,0 +1,6 @@
+[submodule "web/build/nailclipper"]
+	path = web/build/nailclipper
+	url = git@github.com:xdze2/nailclipper.git
+[submodule "web/nailclipper"]
+	path = web/nailclipper
+	url = git@github.com:xdze2/nailclipper.git

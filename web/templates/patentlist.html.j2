@@ -3,7 +3,10 @@
 <html>
 
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_list.css') }}">
+
+        <title>patents list</title>
     </head>
 
     <body>
@@ -18,7 +21,7 @@
             <a href="{{url_for('patentinfo', patent_id=info.patentnumber)}}" class='linkbox'>
                 <div class='imgwrapper square'><span class="verticalcenteringhack"> </span>
                     <span class='isvisited'>•</span>
-                        <img src="{{info.thumbnail}}" alt='🙈' />
+                        <img src="{{ url_for('static', filename=info.thumbnail )}}" alt='🙈' />
                 </div>
 
                 <div class='infowrapper'>

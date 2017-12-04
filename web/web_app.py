@@ -5,9 +5,9 @@ from flask import render_template, abort, redirect, url_for
 
 import pickle
 
-from tools_for_webapp import *
+# from tools_for_webapp import *
 
-# How to run Flask:
+# -- How to run Flask: --
 # $ export FLASK_DEBUG=1
 # $ FLASK_APP=web_app.py flask run
 

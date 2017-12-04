@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<!--<script src="//d3js.org/d3.v4.js"></script>-->
+<!--<script src="script/viz-lite.js" type="javascript/worker"></script>-->
+
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/viz.js@1.8.0/viz.js" type="javascript/worker"></script>
+<!--<script src="https://unpkg.com/d3-graphviz@1.0.1/build/d3-graphviz.min.js"></script>-->
+
+<script src="d3-graphviz.js"></script>
+<div id="graph" style="text-align: center;"></div>
+<script>
+
+/*var graphviz = d3.select("#graph").graphviz()
+    .transition(function () {
+        return d3.transition("graphviz")
+            .ease(d3.easeLinear)
+            .duration(2000);
+    })
+    .logEvents(true); */
+    //.on("initEnd", render);
+    
+var t = d3.transition("tr_graphviz")
+    .duration(20000)
+    .ease(d3.easeLinear);
+    
+d3.text("data/gen_graph_5307209.dot", function(error, data) {
+    render(data);
+});
+
+function render( data ){
+    d3.select("#graph").graphviz()
+        //.fade(false)
+        .transition(t)
+        .renderDot( data );
+}
+
+function load_the_other_graph(){
+    d3.text("data/gen_graph_D470161.dot", function(error, data) {
+        render(data);
+    });
+
+}
+
+var graph = d3.select("#graph")
+         .on("click", function(d,i){
+            load_the_other_graph();
+        });
+
+
+</script>
